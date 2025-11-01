@@ -4,9 +4,11 @@ import br.com.aeris.aeris_user_config.dto.AllUsuariosResponse;
 import br.com.aeris.aeris_user_config.dto.UsuarioRequest;
 import br.com.aeris.aeris_user_config.dto.UsuarioResponse;
 import br.com.aeris.aeris_user_config.model.DadosPessoais;
+import br.com.aeris.aeris_user_config.model.PesquisaColaborador;
 import br.com.aeris.aeris_user_config.model.Usuario;
 import br.com.aeris.aeris_user_config.repository.DadosPessoaisRepository;
 import br.com.aeris.aeris_user_config.repository.EmpresaRepository;
+import br.com.aeris.aeris_user_config.repository.PesquisaColaboradorRepository;
 import br.com.aeris.aeris_user_config.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class UsuarioService {
 
     @Autowired
     private EmpresaRepository empresaRepository;
+
+    @Autowired
+    private PesquisaColaboradorRepository pesquisaColaboradorRepository;
 
     private final EmailValidator emailValidator = EmailValidator.getInstance();
 
@@ -69,14 +74,18 @@ public class UsuarioService {
 
         for(Usuario user: usuarios){
             DadosPessoais dadosPessoais = dadosPessoaisRepository.findByUsuario(user);
+            List<PesquisaColaborador> pesquisasColaborador = pesquisaColaboradorRepository.findByUsuario(user);
 
             AllUsuariosResponse response = AllUsuariosResponse.builder()
                     .id(user.getId())
                     .nome(user.getNome().concat(" ").concat(user.getSobrenome()))
+                    .email(user.getEmail())
                     .genero(dadosPessoais.getGenero())
                     .setor(dadosPessoais.getSetor())
                     .cargo(dadosPessoais.getCargo())
                     .tempoDeCasa(formatarPeriodo(dadosPessoais.getContratado_em()))
+                    .respondidos(pesquisasColaborador.stream().filter(u ->Objects.equals(u.isRespondido(), true) ).count())
+                    .total((long) pesquisasColaborador.size())
                     .build();
 
             responses.add(response);
