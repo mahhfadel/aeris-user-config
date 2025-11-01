@@ -20,6 +20,9 @@ public class DadosPessoais {
     private LocalDateTime contratado_em;
 
     @Column(nullable = false)
+    private LocalDateTime data_nascimento;
+
+    @Column(nullable = false)
     private String setor;
 
     @Column(nullable = false)
