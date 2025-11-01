@@ -8,6 +8,7 @@ import br.com.aeris.aeris_user_config.model.Usuario;
 import br.com.aeris.aeris_user_config.repository.DadosPessoaisRepository;
 import br.com.aeris.aeris_user_config.repository.EmpresaRepository;
 import br.com.aeris.aeris_user_config.repository.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -58,7 +59,7 @@ public class UsuarioService {
                 .build();
     }
 
-    public List<AllUsuariosResponse> getAllColaboraderesUsers(Long empresa){
+    public List<AllUsuariosResponse> getAllColaboradoresUsers(Long empresa){
         List<Usuario> usuarios = usuarioRepository.findByEmpresa(
                 empresaRepository.getReferenceById(empresa)).stream()
                 .filter(u-> Objects.equals(u.getTipo(), "colaborador"))
@@ -86,13 +87,13 @@ public class UsuarioService {
 
     public static String formatarPeriodo(LocalDateTime data) {
         if (data == null) {
-            return "Data não informada";
+            return "Periodo não informada";
         }
 
         LocalDateTime agora = LocalDateTime.now();
 
         if (data.isAfter(agora)) {
-            return "Data no futuro";
+            return "-";
         }
 
         Period periodo = Period.between(
@@ -126,7 +127,7 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findByEmail(email);
 
         if(usuario == null){
-            throw new IllegalArgumentException("Não existe um usuário com esse email");
+            throw new EntityNotFoundException("Não existe um usuário com esse email");
         }
 
         DadosPessoais dadosPessoais = new DadosPessoais();
