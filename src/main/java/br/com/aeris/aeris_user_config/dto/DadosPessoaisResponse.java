@@ -1,6 +1,5 @@
 package br.com.aeris.aeris_user_config.dto;
 
-import br.com.aeris.aeris_user_config.model.DadosPessoais;
 import lombok.Builder;
 import lombok.Data;
 

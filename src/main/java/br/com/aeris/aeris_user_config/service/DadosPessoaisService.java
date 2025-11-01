@@ -3,7 +3,6 @@ package br.com.aeris.aeris_user_config.service;
 import br.com.aeris.aeris_user_config.dto.DadosPessoaisRequest;
 import br.com.aeris.aeris_user_config.dto.DadosPessoaisResponse;
 import br.com.aeris.aeris_user_config.model.DadosPessoais;
-import br.com.aeris.aeris_user_config.model.Usuario;
 import br.com.aeris.aeris_user_config.repository.DadosPessoaisRepository;
 import br.com.aeris.aeris_user_config.repository.EmpresaRepository;
 import br.com.aeris.aeris_user_config.repository.UsuarioRepository;

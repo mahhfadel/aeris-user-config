@@ -3,7 +3,6 @@ package br.com.aeris.aeris_user_config.controller;
 
 import br.com.aeris.aeris_user_config.dto.DadosPessoaisRequest;
 import br.com.aeris.aeris_user_config.dto.DadosPessoaisResponse;
-import br.com.aeris.aeris_user_config.dto.UsuarioResponse;
 import br.com.aeris.aeris_user_config.service.DadosPessoaisService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
