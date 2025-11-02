@@ -38,11 +38,11 @@ public class UsuarioService {
     public UsuarioResponse createUsuario(UsuarioRequest request){
 
         if (usuarioRepository.existsByEmail(request.getEmail())) {
-            throw new IllegalArgumentException("Erro: Já existe um usuário com o email " + request.getEmail());
+            throw new IllegalArgumentException("Já existe um usuário com o email " + request.getEmail());
         }
 
         if (!emailValidator.isValid(request.getEmail())) {
-            throw new IllegalArgumentException("Email inválido: " + request.getEmail());
+            throw new IllegalArgumentException("Email inválido!");
         }
 
         Usuario usuario = new Usuario();
@@ -74,6 +74,9 @@ public class UsuarioService {
 
         for(Usuario user: usuarios){
             DadosPessoais dadosPessoais = dadosPessoaisRepository.findByUsuario(user);
+            if(dadosPessoais ==null){
+                dadosPessoais = new DadosPessoais();
+            }
             List<PesquisaColaborador> pesquisasColaborador = pesquisaColaboradorRepository.findByUsuario(user);
 
             AllUsuariosResponse response = AllUsuariosResponse.builder()
