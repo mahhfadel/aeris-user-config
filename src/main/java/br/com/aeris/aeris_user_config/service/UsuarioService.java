@@ -15,8 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.commons.validator.routines.EmailValidator;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.chrono.ChronoLocalDate;
 import java.util.*;
 
 @Service
@@ -97,20 +99,20 @@ public class UsuarioService {
         return responses;
     }
 
-    public static String formatarPeriodo(LocalDateTime data) {
+    public static String formatarPeriodo(LocalDate data) {
         if (data == null) {
             return "Periodo não informada";
         }
 
-        LocalDateTime agora = LocalDateTime.now();
+        LocalDate agora = LocalDate.now();
 
-        if (data.isAfter(agora)) {
+        if (data.isAfter(ChronoLocalDate.from(agora))) {
             return "-";
         }
 
         Period periodo = Period.between(
-                data.toLocalDate(),
-                agora.toLocalDate()
+                data,
+                agora
         );
 
         int anos = periodo.getYears();

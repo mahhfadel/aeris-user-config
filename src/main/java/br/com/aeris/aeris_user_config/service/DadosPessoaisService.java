@@ -3,11 +3,14 @@ package br.com.aeris.aeris_user_config.service;
 import br.com.aeris.aeris_user_config.dto.DadosPessoaisRequest;
 import br.com.aeris.aeris_user_config.dto.DadosPessoaisResponse;
 import br.com.aeris.aeris_user_config.model.DadosPessoais;
+import br.com.aeris.aeris_user_config.model.Usuario;
 import br.com.aeris.aeris_user_config.repository.DadosPessoaisRepository;
 import br.com.aeris.aeris_user_config.repository.EmpresaRepository;
 import br.com.aeris.aeris_user_config.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 public class DadosPessoaisService {
@@ -54,13 +57,16 @@ public class DadosPessoaisService {
         }
 
         if(dadosPessoaisRepository.existsByUsuario(usuarioRepository.findByEmail(email))){
-            throw new IllegalArgumentException("Usuário ja respondeu o senso");
+            return DadosPessoaisResponse.builder()
+                    .dadosRespondidos(true)
+                    .mensagem("Usuário já respondeu o senso")
+                    .build();
+        } else{
+            return DadosPessoaisResponse.builder()
+                    .dadosRespondidos(false)
+                    .mensagem("Usuário não respondeu o senso")
+                    .build();
         }
-
-        return DadosPessoaisResponse.builder()
-                .dadosRespondidos(false)
-                .mensagem("Usuário não respondeu o senso")
-                .build();
 
     }
 }
