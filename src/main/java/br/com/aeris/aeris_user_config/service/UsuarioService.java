@@ -96,6 +96,8 @@ public class UsuarioService {
             responses.add(response);
         }
 
+        responses.sort(Comparator.comparing(AllUsuariosResponse::getNome, String.CASE_INSENSITIVE_ORDER));
+
         return responses;
     }
 
