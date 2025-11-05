@@ -20,13 +20,16 @@ public class Pesquisa {
     private LocalDate criadoEm;
 
     @Column(nullable = false)
+    private LocalDateTime FinalizadoEm;
+
+    @Column(nullable = false)
     private LocalDate prazo;
 
     @Column(nullable = false)
     private String nome;
 
     @Column(nullable = false)
-    private Long usuario_id;
+    private Long usuarioId;
 
     private Boolean ativo = true;
 

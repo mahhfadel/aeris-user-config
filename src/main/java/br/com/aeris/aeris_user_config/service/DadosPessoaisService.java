@@ -34,12 +34,12 @@ public class DadosPessoaisService {
 
         DadosPessoais dadosPessoais = new DadosPessoais();
         dadosPessoais.setGenero(request.getGenero());
-        dadosPessoais.setContratado_em(request.getContratado_em());
-        dadosPessoais.setData_nascimento(request.getData_nascimento());
+        dadosPessoais.setContratadoEm(request.getContratadoEm());
+        dadosPessoais.setDataNascimento(request.getDataNascimento());
         dadosPessoais.setSetor(request.getSetor());
         dadosPessoais.setCargo(request.getCargo());
         dadosPessoais.setSexualidade(request.getSexualidade());
-        dadosPessoais.setTermos_de_uso(request.isTermos_de_uso());
+        dadosPessoais.setTermosDeUso(request.isTermosDeUso());
         dadosPessoais.setUsuario(usuarioRepository.findByEmail(request.getEmailUsuario()));
 
         dadosPessoaisRepository.save(dadosPessoais);

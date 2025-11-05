@@ -19,9 +19,6 @@ public class PesquisaColaborador {
     private LocalDateTime criadoEm;
 
     @Column(nullable = false)
-    private LocalDateTime FinalizadoEm;
-
-    @Column(nullable = false)
     private String token;
 
     @Column(nullable = false)

@@ -10,13 +10,13 @@ public class DadosPessoaisRequest {
     private String genero;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate contratado_em;
+    private LocalDate contratadoEm;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate data_nascimento;
+    private LocalDate dataNascimento;
     private String setor;
     private String cargo;
     private String sexualidade;
-    private boolean termos_de_uso;
+    private boolean termosDeUso;
     private String emailUsuario;
 }

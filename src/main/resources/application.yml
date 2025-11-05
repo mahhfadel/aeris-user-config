@@ -34,3 +34,8 @@ springdoc:
   swagger-ui:
     enabled: true
     path: /swagger-ui.html
+
+
+jwt:
+  secret: NDA0RTYzNTI2NjU1NkE1ODZFMzI3MjM1NzUzODc4MkY0MTNGNDQyODQ3MkI0QjYyNTA2NDUzNjc1NjZCNTk3MA==
+  expiration: 86400000

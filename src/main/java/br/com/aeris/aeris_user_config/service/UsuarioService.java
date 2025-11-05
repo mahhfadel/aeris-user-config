@@ -87,7 +87,7 @@ public class UsuarioService {
                     .genero(dadosPessoais.getGenero())
                     .setor(dadosPessoais.getSetor())
                     .cargo(dadosPessoais.getCargo())
-                    .tempoDeCasa(formatarPeriodo(dadosPessoais.getContratado_em()))
+                    .tempoDeCasa(formatarPeriodo(dadosPessoais.getContratadoEm()))
                     .respondidos(pesquisasColaborador.stream().filter(u ->Objects.equals(u.isRespondido(), true) ).count())
                     .total((long) pesquisasColaborador.size())
                     .build();
