@@ -65,11 +65,22 @@ public class UsuarioService {
                 .build();
     }
 
-    public List<AllUsuariosResponse> getAllColaboradoresUsers(Long empresa){
+    public List<AllUsuariosResponse> getAllColaboradoresUsers(Long empresa, Long idPesquisa){
         List<Usuario> usuarios = usuarioRepository.findByEmpresa(
                 empresaRepository.getReferenceById(empresa)).stream()
                 .filter(u-> Objects.equals(u.getTipo(), "colaborador"))
                 .toList();
+
+        if (idPesquisa != null) {
+            usuarios = usuarios.stream()
+                    .filter(user -> {
+                        boolean jaEstaNaPesquisa = pesquisaColaboradorRepository
+                                .existsByUsuarioAndPesquisaId(user, idPesquisa);
+
+                        return !jaEstaNaPesquisa;
+                    })
+                    .toList();
+        }
 
         List<AllUsuariosResponse> responses = new ArrayList<>();
 

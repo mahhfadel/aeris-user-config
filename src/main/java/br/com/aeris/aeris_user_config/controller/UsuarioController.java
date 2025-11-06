@@ -52,9 +52,9 @@ public class UsuarioController {
 
     @GetMapping("/allUsuario")
     @Operation(summary = "Retornar todos usuários", description = "Endpoint para retornar todos os usuários")
-    public ResponseEntity<?> getAllColaboraderesUsers(@RequestParam Long empresa) {
+    public ResponseEntity<?> getAllColaboraderesUsers(@RequestParam Long empresa, @RequestParam(required = false) Long idPesquisa) {
         try {
-            List<AllUsuariosResponse> response = usuarioService.getAllColaboradoresUsers(empresa);
+            List<AllUsuariosResponse> response = usuarioService.getAllColaboradoresUsers(empresa, idPesquisa);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             ErrorResponse error = ErrorResponse.builder()

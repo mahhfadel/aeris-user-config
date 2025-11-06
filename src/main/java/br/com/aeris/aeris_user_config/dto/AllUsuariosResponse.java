@@ -15,4 +15,5 @@ public class AllUsuariosResponse {
     private String tempoDeCasa;
     private Long respondidos;
     private Long total;
+    private Long idPesquisa;
 }
