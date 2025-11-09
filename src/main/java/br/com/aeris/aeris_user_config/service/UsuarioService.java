@@ -11,6 +11,7 @@ import br.com.aeris.aeris_user_config.repository.EmpresaRepository;
 import br.com.aeris.aeris_user_config.repository.PesquisaColaboradorRepository;
 import br.com.aeris.aeris_user_config.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -34,8 +35,15 @@ public class UsuarioService {
     @Autowired
     private PesquisaColaboradorRepository pesquisaColaboradorRepository;
 
+    private final EmailService emailService;
+
     private final EmailValidator emailValidator = EmailValidator.getInstance();
 
+    public UsuarioService(EmailService emailService) {
+        this.emailService = emailService;
+    }
+
+    @Transactional
     public UsuarioResponse createUsuario(UsuarioRequest request){
 
         if (usuarioRepository.existsByEmail(request.getEmail())) {
@@ -55,6 +63,12 @@ public class UsuarioService {
         usuario.setAtivo(true);
 
         usuarioRepository.save(usuario);
+
+        emailService.enviarEmailBoasVindas(
+                usuario.getEmail(),
+                usuario.getEmpresa().getNome(),
+                usuario.getNome()
+        );
 
         return UsuarioResponse.builder()
                 .email(usuario.getEmail())

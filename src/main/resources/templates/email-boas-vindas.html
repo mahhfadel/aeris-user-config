@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #F2F2F2;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #AC4A00, #006172);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .content {
+            padding: 30px;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img
+            src="https://raw.githubusercontent.com/mahhfadel/Aeris/refs/heads/main/src/assets/Logo.svg"
+            alt="Logo"
+            width="200"
+            style="border-radius: 8px;"
+        />
+    </div>
+    <div class="content">
+        <h2>Olá, <span th:text="${nome}">Nome</span>!</h2>
+        <p>Você foi convidado a integrar a plataforma de pesquisa Aeris pela empresa <span th:text="${empresa}">Empresa</span>. Estamos muito felizes em tê-lo conosco.</p>
+        <p>Quando sua empresa te incluir em uma pesquisa você receberá um email com as instruções necessárias.</p>
+
+        <p>Se você tiver alguma dúvida, entre em contato com sua empresa, obrigada!</p>
+    </div>
+    <div class="footer">
+        <p>&copy; <span th:text="${anoAtual}">2025</span> Aeris. Todos os direitos reservados.</p>
+    </div>
+</div>
+</body>
+</html>

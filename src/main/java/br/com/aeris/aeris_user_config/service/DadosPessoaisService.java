@@ -7,6 +7,7 @@ import br.com.aeris.aeris_user_config.model.Usuario;
 import br.com.aeris.aeris_user_config.repository.DadosPessoaisRepository;
 import br.com.aeris.aeris_user_config.repository.EmpresaRepository;
 import br.com.aeris.aeris_user_config.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ public class DadosPessoaisService {
     @Autowired
     private EmpresaRepository empresaRepository;
 
+    @Transactional
     public DadosPessoaisResponse responderSenso(DadosPessoaisRequest request){
         if(!usuarioRepository.existsByEmail(request.getEmailUsuario())){
             throw new RuntimeException("Não existe um usuário com esse email");
