@@ -144,6 +144,44 @@ public class UsuarioService {
         return responses;
     }
 
+    public static String formatarPeriodo(LocalDate data) {
+        if (data == null) {
+            return "Periodo não informada";
+        }
+
+        LocalDate agora = LocalDate.now();
+
+        if (data.isAfter(ChronoLocalDate.from(agora))) {
+            return "-";
+        }
+
+        Period periodo = Period.between(
+                data,
+                agora
+        );
+
+        int anos = periodo.getYears();
+        int meses = periodo.getMonths();
+
+        StringBuilder resultado = new StringBuilder();
+
+        if (anos > 0) {
+            resultado.append(anos).append(anos == 1 ? " ano" : " anos");
+        }
+
+        if (resultado.length() > 0) {
+            resultado.append(" e ");
+        }
+
+        if(meses > 0) {
+            resultado.append(meses).append(meses == 1 ? " mês" : " meses");
+        } else {
+            resultado.append("1 mês");
+        }
+
+        return resultado.toString();
+    }
+
     public UsuarioResponse readUsuario(String email) {
         logger.info("[UsuarioService.readUsuario] Buscando usuário pelo email: {}", email);
 
