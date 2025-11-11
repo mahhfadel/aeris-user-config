@@ -71,12 +71,17 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
         logger.info("[UsuarioService.createUsuario] Usuário criado com sucesso: ID={}, Email={}", usuario.getId(), usuario.getEmail());
 
-        emailService.enviarEmailBoasVindas(
-                usuario.getEmail(),
-                usuario.getEmpresa().getNome(),
-                usuario.getNome()
-        );
-        logger.info("[UsuarioService.createUsuario] Email de boas-vindas enviado para {}", usuario.getEmail());
+        try {
+            emailService.enviarEmailBoasVindas(
+                    usuario.getEmail(),
+                    usuario.getEmpresa().getNome(),
+                    usuario.getNome()
+            );
+
+            logger.info("[UsuarioService.createUsuario] Email de boas-vindas enviado para {}", usuario.getEmail());
+        } catch (Exception e) {
+            logger.error("[UsuarioService.createUsuario] Erro ao agendar envio de email", e);
+        }
 
         return UsuarioResponse.builder()
                 .email(usuario.getEmail())

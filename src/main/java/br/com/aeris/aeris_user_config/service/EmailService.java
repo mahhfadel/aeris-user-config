@@ -23,9 +23,11 @@ public class EmailService {
     private final TemplateEngine templateEngine;
     private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
 
+    @Async
     public void enviarEmailHtml(String destinatario, String assunto,
                                 String template, Map<String, Object> variaveis) {
-        log.info("[EmailService.enviarEmailHtml] Iniciando envio de email HTML para: {} | Assunto: {} | Template: {}", destinatario, assunto, template);
+        log.info("[EmailService.enviarEmailHtml] Iniciando envio de email HTML para: {} | Assunto: {} | Template: {}",
+                destinatario, assunto, template);
 
         try {
             MimeMessage message = mailSender.createMimeMessage();
@@ -36,22 +38,22 @@ public class EmailService {
 
             Context context = new Context();
             context.setVariables(variaveis);
-            log.debug("[EmailService.enviarEmailHtml] Variáveis do template: {}", variaveis);
 
             String conteudoHtml = templateEngine.process(template, context);
-            log.debug("[EmailService.enviarEmailHtml] Template processado com sucesso para destinatário: {}", destinatario);
-
             helper.setText(conteudoHtml, true);
 
             mailSender.send(message);
             log.info("[EmailService.enviarEmailHtml] Email enviado com sucesso para: {}", destinatario);
 
         } catch (MessagingException e) {
-            log.error("[EmailService.enviarEmailHtml] Erro ao enviar email para: {} | Assunto: {}", destinatario, assunto, e);
-            throw new RuntimeException("Falha no envio do email", e);
+            log.error("[EmailService.enviarEmailHtml] Erro ao enviar email para: {} | Assunto: {}",
+                    destinatario, assunto, e);
+        } catch (Exception e) {
+            log.error("[EmailService.enviarEmailHtml] Erro inesperado ao enviar email", e);
         }
     }
 
+    @Async
     public void enviarEmailBoasVindas(String destinatario, String empresa, String nome) {
         log.info("[EmailService.enviarEmailBoasVindas] Preparando envio de email de boas-vindas para: {} | Empresa: {} | Nome: {}", destinatario, empresa, nome);
 
